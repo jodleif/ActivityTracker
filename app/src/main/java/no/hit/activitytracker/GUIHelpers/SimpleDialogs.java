@@ -20,11 +20,15 @@ public class SimpleDialogs {
         return b;
     }
 
-    @NonNull
-    FragmentManager fm;
+    public static Bundle createDefaultBundle() {
+        return createDialogBundle("Default message", "Yes", "No");
+    }
 
-    public static void showDialog(FragmentManager fm, Bundle dialogOpts) {
+    public static void showDialog(@NonNull FragmentManager fm, Bundle dialogOpts) {
         DebugDialog fragment = new DebugDialog();
+        if (dialogOpts == null) {
+            dialogOpts = createDefaultBundle();
+        }
         fragment.setArguments(dialogOpts);
         fragment.show(fm, UUID.randomUUID().toString());
     }

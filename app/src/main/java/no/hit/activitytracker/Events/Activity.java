@@ -1,10 +1,12 @@
-package no.hit.activitytracker;
+package no.hit.activitytracker.Events;
+
+import java.io.Serializable;
 
 /**
  * Created by Jo on 2/10/2017.
  */
 
-public enum Activity {
+public enum Activity implements Serializable {
     COFFEE,
     EMAIL,
     SNACK,
