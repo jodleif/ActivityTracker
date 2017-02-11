@@ -25,4 +25,25 @@ public class ActivityEvent implements Serializable {
     private static long unixTimestamp() {
         return System.currentTimeMillis() / 1_000;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ActivityEvent that = (ActivityEvent) o;
+
+        if (timestamp != that.timestamp) return false;
+        if (act != that.act) return false;
+        return userId.equals(that.userId);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = act.hashCode();
+        result = 31 * result + (int) (timestamp ^ (timestamp >>> 32));
+        result = 31 * result + userId.hashCode();
+        return result;
+    }
 }
