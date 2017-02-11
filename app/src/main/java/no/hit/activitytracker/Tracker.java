@@ -1,5 +1,6 @@
 package no.hit.activitytracker;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,6 +8,10 @@ import android.widget.TextView;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,10 +20,12 @@ import no.hit.activitytracker.EventQueue.EventQueue;
 import no.hit.activitytracker.Events.Activity;
 import no.hit.activitytracker.Events.ActivityEvent;
 import no.hit.activitytracker.Events.AggregatedEventView;
+import no.hit.activitytracker.GUIHelpers.SimpleDialogs;
 import no.hit.activitytracker.GUIHelpers.TaggedTextView;
 
 public class Tracker extends AppCompatActivity {
 
+    private final static String EVENTQUEUE_STATE_ID = "EventQueueState";
     private final EventQueue eventQueue = new EventQueue();
     private final static String userId = "TEMPLATE_USER_ID";
     private final HashMap<Activity, TextView> labelMapping = new HashMap<>();
@@ -31,6 +38,32 @@ public class Tracker extends AppCompatActivity {
         setContentView(R.layout.activity_tracker);
         refreshViewBasedOnState();
         mapTextViews();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try (FileOutputStream fos = getApplicationContext().openFileOutput(EVENTQUEUE_STATE_ID, Context.MODE_PRIVATE);
+             ObjectOutputStream os = new ObjectOutputStream(fos)) {
+            os.writeObject(eventQueue);
+        } catch (Exception e) {
+            SimpleDialogs.showDialog(getFragmentManager(),
+                    SimpleDialogs.createDialogBundle(String.format("Error saving state, %s", e.getMessage()), "Y", "N"));
+        }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        try (FileInputStream fis = getApplicationContext().openFileInput(EVENTQUEUE_STATE_ID);
+             ObjectInputStream is = new ObjectInputStream(fis)) {
+            eventQueue.restore((EventQueue) is.readObject());
+        } catch (Exception e) {
+
+            SimpleDialogs.showDialog(getFragmentManager(),
+                    SimpleDialogs.createDialogBundle(String.format("Error loading state, %s", e.getMessage()), "Y", "N"));
+        }
+        refreshViewBasedOnState();
     }
 
     private void mapTextViews() {

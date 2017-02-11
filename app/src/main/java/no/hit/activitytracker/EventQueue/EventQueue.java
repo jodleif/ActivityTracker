@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import org.joda.time.DateTime;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import no.hit.activitytracker.Events.ActivityEvent;
@@ -15,7 +16,7 @@ import no.hit.activitytracker.FunctionalUtils.Utils;
  * Created by Jo on 2/11/2017.
  */
 
-public class EventQueue {
+public class EventQueue implements Serializable {
     private final ArrayList<ActivityEvent> pendingEvents = new ArrayList<>();
     private final ArrayList<ActivityEvent> committedEvents = new ArrayList<>();
 
@@ -72,6 +73,14 @@ public class EventQueue {
         return eventView;
     }
 
+    public boolean restore(EventQueue ev) {
+        if (pendingEvents.size() != 0 && committedEvents.size() != 0) return false;
+        this.pendingEvents.addAll(ev.pendingEvents);
+        this.committedEvents.addAll(ev.committedEvents);
+        cleanup();
+        return true;
+    }
+
     class NotSameDay implements Pred<ActivityEvent> {
         private final DateTime now;
 
@@ -87,5 +96,6 @@ public class EventQueue {
             return day != tsDay;
         }
     }
+
 
 }
