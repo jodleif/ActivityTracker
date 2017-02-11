@@ -72,6 +72,7 @@ public class Tracker extends AppCompatActivity {
         tvs.add(new TaggedTextView(Activity.EMAIL, (TextView) findViewById(R.id.mailTimes)));
         tvs.add(new TaggedTextView(Activity.SNACK, (TextView) findViewById(R.id.snackTimes)));
         tvs.add(new TaggedTextView(Activity.MEETING, (TextView) findViewById(R.id.meetTimes)));
+        tvs.add(new TaggedTextView(Activity.CALL, (TextView) findViewById(R.id.callTimes)));
         labelMapping.clear();
         labelMapping.putAll(TaggedTextView.createMap(tvs));
     }
@@ -101,6 +102,11 @@ public class Tracker extends AppCompatActivity {
 
     public void onMeeting(View view) {
         eventQueue.push(new ActivityEvent(Activity.MEETING, userId));
+        refreshViewBasedOnState();
+    }
+
+    public void onCall(View view) {
+        eventQueue.push(new ActivityEvent(Activity.CALL, userId));
         refreshViewBasedOnState();
     }
 }

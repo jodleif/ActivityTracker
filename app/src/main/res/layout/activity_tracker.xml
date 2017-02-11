@@ -32,15 +32,6 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_food_icecream_2"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:onClick="onSnack"
-        android:id="@+id/imageButton3" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_calendar_1"
         android:layout_alignTop="@+id/imageButton3"
         android:layout_alignStart="@+id/imageButton2"
@@ -89,5 +80,33 @@
         android:layout_below="@+id/imageButton2"
         android:layout_alignStart="@+id/imageButton2"
         android:textSize="18sp" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/callTimes"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="18sp"
+        android:layout_below="@+id/imageButton5"
+        android:layout_alignStart="@+id/snackTimes" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_phone_incoming"
+        android:id="@+id/imageButton5"
+        android:layout_below="@+id/snackTimes"
+        android:onClick="onCall"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_food_icecream_2"
+        android:onClick="onSnack"
+        android:id="@+id/imageButton3"
+        android:layout_below="@+id/coffeeTimes"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

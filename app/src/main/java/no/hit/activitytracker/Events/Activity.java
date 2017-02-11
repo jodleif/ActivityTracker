@@ -11,6 +11,7 @@ public enum Activity implements Serializable {
     EMAIL,
     SNACK,
     MEETING,
+    CALL,
     UNKNOWN;
 
     @Override
@@ -29,6 +30,8 @@ public enum Activity implements Serializable {
                 return 3;
             case MEETING:
                 return 4;
+            case CALL:
+                return 5;
             case UNKNOWN:
                 return 0;
         }
