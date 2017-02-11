@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:onClick="onCoffee"
-        android:id="@+id/imageButton" />
+        android:id="@+id/coffeeButton" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -27,23 +27,23 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:onClick="onEmail"
-        android:id="@+id/imageButton2" />
+        android:id="@+id/mailButton" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_calendar_1"
-        android:layout_alignTop="@+id/imageButton3"
-        android:layout_alignStart="@+id/imageButton2"
+        android:layout_alignTop="@+id/snackButton"
+        android:layout_alignStart="@+id/mailButton"
         android:onClick="onMeeting"
-        android:id="@+id/imageButton4" />
+        android:id="@+id/meetingButton" />
 
     <TextView
         android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/snackTimes"
-        android:layout_below="@+id/imageButton3"
+        android:layout_below="@+id/snackButton"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:layout_alignStart="@+id/coffeeTimes"
         android:textSize="18sp" />
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
         android:id="@+id/coffeeTimes"
-        android:layout_below="@+id/imageButton"
+        android:layout_below="@+id/coffeeButton"
         android:layout_alignParentStart="true"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp" />
@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/meetTimes"
-        android:layout_below="@+id/imageButton4"
+        android:layout_below="@+id/meetingButton"
         android:layout_alignStart="@+id/mailTimes"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:fontFamily="sans-serif"
@@ -77,8 +77,8 @@
         android:id="@+id/mailTimes"
         android:layout_marginStart="69dp"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:layout_below="@+id/imageButton2"
-        android:layout_alignStart="@+id/imageButton2"
+        android:layout_below="@+id/mailButton"
+        android:layout_alignStart="@+id/mailButton"
         android:textSize="18sp" />
 
     <TextView
@@ -88,14 +88,14 @@
         android:id="@+id/callTimes"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp"
-        android:layout_below="@+id/imageButton5"
+        android:layout_below="@+id/callButton"
         android:layout_alignStart="@+id/snackTimes" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_phone_incoming"
-        android:id="@+id/imageButton5"
+        android:id="@+id/callButton"
         android:layout_below="@+id/snackTimes"
         android:onClick="onCall"
         android:layout_alignParentStart="true" />
@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_food_icecream_2"
         android:onClick="onSnack"
-        android:id="@+id/imageButton3"
+        android:id="@+id/snackButton"
         android:layout_below="@+id/coffeeTimes"
         android:layout_alignParentStart="true" />
 
