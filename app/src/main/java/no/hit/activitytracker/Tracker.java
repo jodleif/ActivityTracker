@@ -1,0 +1,16 @@
+package no.hit.activitytracker;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+public class Tracker extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tracker);
+        DebugDialog d = new DebugDialog();
+        d.show(getFragmentManager(), "OMFG");
+
+    }
+}
