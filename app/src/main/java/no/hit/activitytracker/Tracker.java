@@ -9,8 +9,10 @@ public class Tracker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracker);
-        DebugDialog d = new DebugDialog();
-        d.show(getFragmentManager(), "OMFG");
 
+        Bundle b = (DebugDialog.createDialogBundle("Hello world", "Y", "N"));
+        DebugDialog dialogFrag = new DebugDialog();
+        dialogFrag.setArguments(b);
+        dialogFrag.show(getFragmentManager(), "dialog");
     }
 }
