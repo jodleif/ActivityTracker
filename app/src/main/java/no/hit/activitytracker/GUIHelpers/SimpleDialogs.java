@@ -8,6 +8,8 @@ import java.util.UUID;
 
 /**
  * Created by Jo on 2/11/2017.
+ *
+ * This is a helper class to create popup-dialogs (works in conj with DebugDialog)
  */
 
 public class SimpleDialogs {

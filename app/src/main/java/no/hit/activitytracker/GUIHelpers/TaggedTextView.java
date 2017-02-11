@@ -10,6 +10,8 @@ import no.hit.activitytracker.Events.Activity;
 
 /**
  * Created by Jo on 2/11/2017.
+ *
+ * This class is a helper class to keep track of text-views that are related to specific activities.
  */
 
 public class TaggedTextView {

@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 /**
  * Created by Jo on 2/10/2017.
+ *
+ * This enum describes the supported (apps) activity types.
  */
 
 public enum Activity implements Serializable {

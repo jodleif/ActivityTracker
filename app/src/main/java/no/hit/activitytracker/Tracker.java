@@ -23,6 +23,10 @@ import no.hit.activitytracker.Events.AggregatedEventView;
 import no.hit.activitytracker.GUIHelpers.SimpleDialogs;
 import no.hit.activitytracker.GUIHelpers.TaggedTextView;
 
+/**
+ * This class describes the main view / activity in the application
+ */
+
 public class Tracker extends AppCompatActivity {
 
     private final static String EVENTQUEUE_STATE_ID = "EventQueueState";

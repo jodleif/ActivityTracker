@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 /**
  * Created by Jo on 2/10/2017.
+ *
+ * This is a class to display yes/no dialogboxes. Mostly for debugging purposes.
  */
 
 public class DebugDialog extends DialogFragment {

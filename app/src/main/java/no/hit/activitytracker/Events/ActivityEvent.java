@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 /**
  * Created by Jo on 2/11/2017.
+ *
+ * This is class describes the events that the user registers in the app
  */
 
 public class ActivityEvent implements Serializable {

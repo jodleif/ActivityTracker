@@ -4,6 +4,8 @@ import no.hit.activitytracker.BuildConfig;
 
 /**
  * Created by Jo on 2/11/2017.
+ *
+ * This class is used to get the daily aggregates for events.
  */
 
 public class AggregatedEventView {

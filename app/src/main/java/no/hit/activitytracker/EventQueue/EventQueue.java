@@ -14,6 +14,12 @@ import no.hit.activitytracker.FunctionalUtils.Utils;
 
 /**
  * Created by Jo on 2/11/2017.
+ *
+ * This class manages the registered activities.
+ *
+ * It consists of two arraylists:
+ * pendingEvents contains pending events (yet to be committed to remote db)
+ * committedEvents contains events that are committed to remote db
  */
 
 public class EventQueue implements Serializable {
