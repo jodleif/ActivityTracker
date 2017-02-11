@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 
 import no.hit.activitytracker.Events.ActivityEvent;
+import no.hit.activitytracker.Events.AggregatedEventView;
 import no.hit.activitytracker.FunctionalUtils.Pred;
 import no.hit.activitytracker.FunctionalUtils.Utils;
 
@@ -62,6 +63,13 @@ public class EventQueue {
         // If we have uncommitted events from yesterday, they are not a part of the view
         Utils.removeIf(new NotSameDay(), currentView);
         return currentView;
+    }
+
+    public AggregatedEventView getCurrentAggregatedView() {
+        ArrayList<ActivityEvent> aggregate = getCurrentView();
+        AggregatedEventView eventView = new AggregatedEventView();
+        for (ActivityEvent e : aggregate) eventView.add(e.act);
+        return eventView;
     }
 
     class NotSameDay implements Pred<ActivityEvent> {

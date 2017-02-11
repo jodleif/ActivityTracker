@@ -15,19 +15,24 @@ public enum Activity implements Serializable {
 
     @Override
     public String toString() {
+        return Integer.toString(valueOf());
+    }
+
+    public int valueOf() {
         switch (this) {
+
             case COFFEE:
-                return "1";
+                return 1;
             case EMAIL:
-                return "2";
+                return 2;
             case SNACK:
-                return "3";
+                return 3;
             case MEETING:
-                return "4";
+                return 4;
             case UNKNOWN:
-                return Integer.toString(Integer.MAX_VALUE);
+                return 0;
         }
-        // this should be dead code.
-        throw new IllegalArgumentException("ENUM:Activity - Memory corruption?");
+        // bad exception type but should be dead code and greppable
+        throw new IllegalArgumentException("Activity: Invalid enum state");
     }
 }

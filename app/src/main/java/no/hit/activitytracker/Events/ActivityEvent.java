@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 
 public class ActivityEvent implements Serializable {
-    final Activity act;
+    public final Activity act;
     public final long timestamp;
     final String userId;
 
