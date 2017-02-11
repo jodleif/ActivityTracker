@@ -53,8 +53,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/snackTimes"
         android:layout_below="@+id/imageButton3"
+        android:textAppearance="@style/TextAppearance.AppCompat"
         android:layout_alignStart="@+id/coffeeTimes"
-        android:textAppearance="@style/TextAppearance.AppCompat" />
+        android:textSize="18sp" />
 
     <TextView
         android:text="0"
