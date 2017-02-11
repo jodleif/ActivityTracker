@@ -7,6 +7,8 @@ package no.hit.activitytracker;
 public enum Activity {
     COFFEE,
     EMAIL,
+    SNACK,
+    MEETING,
     UNKNOWN;
 
     @Override
@@ -16,6 +18,10 @@ public enum Activity {
                 return "1";
             case EMAIL:
                 return "2";
+            case SNACK:
+                return "3";
+            case MEETING:
+                return "4";
             case UNKNOWN:
                 return Integer.toString(Integer.MAX_VALUE);
         }
