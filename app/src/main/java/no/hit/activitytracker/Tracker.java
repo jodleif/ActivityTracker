@@ -15,7 +15,6 @@ import no.hit.activitytracker.EventQueue.EventQueue;
 import no.hit.activitytracker.Events.Activity;
 import no.hit.activitytracker.Events.ActivityEvent;
 import no.hit.activitytracker.Events.AggregatedEventView;
-import no.hit.activitytracker.GUIHelpers.SimpleDialogs;
 import no.hit.activitytracker.GUIHelpers.TaggedTextView;
 
 public class Tracker extends AppCompatActivity {
@@ -53,25 +52,21 @@ public class Tracker extends AppCompatActivity {
     }
 
     public void onCoffee(View view) {
-        SimpleDialogs.showDialog(getFragmentManager(), SimpleDialogs.createDialogBundle("On Coffee", "Y", "N"));
         eventQueue.push(new ActivityEvent(Activity.COFFEE, userId));
         refreshViewBasedOnState();
     }
 
     public void onEmail(View view) {
-        SimpleDialogs.showDialog(getFragmentManager(), SimpleDialogs.createDialogBundle("On Email", "Y", "N"));
         eventQueue.push(new ActivityEvent(Activity.EMAIL, userId));
         refreshViewBasedOnState();
     }
 
     public void onSnack(View view) {
-        SimpleDialogs.showDialog(getFragmentManager(), SimpleDialogs.createDialogBundle("On Snack", "Y", "N"));
         eventQueue.push(new ActivityEvent(Activity.SNACK, userId));
         refreshViewBasedOnState();
     }
 
     public void onMeeting(View view) {
-        SimpleDialogs.showDialog(getFragmentManager(), SimpleDialogs.createDialogBundle("On Meeting", "Y", "N"));
         eventQueue.push(new ActivityEvent(Activity.MEETING, userId));
         refreshViewBasedOnState();
     }
