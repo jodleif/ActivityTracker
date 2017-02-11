@@ -17,6 +17,7 @@
         app:srcCompat="@drawable/ic_coffee_mug"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
+        android:onClick="onCoffee"
         android:id="@+id/imageButton" />
 
     <ImageButton
@@ -25,6 +26,7 @@
         app:srcCompat="@drawable/ic_email_inbox"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:onClick="onEmail"
         android:id="@+id/imageButton2" />
 
     <ImageButton
@@ -33,6 +35,7 @@
         app:srcCompat="@drawable/ic_food_icecream_2"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
+        android:onClick="onSnack"
         android:id="@+id/imageButton3" />
 
     <ImageButton
@@ -41,5 +44,6 @@
         app:srcCompat="@drawable/ic_calendar_1"
         android:layout_alignTop="@+id/imageButton3"
         android:layout_alignStart="@+id/imageButton2"
+        android:onClick="onMeeting"
         android:id="@+id/imageButton4" />
 </RelativeLayout>

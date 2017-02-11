@@ -1,4 +1,4 @@
-package no.hit.activitytracker;
+package no.hit.activitytracker.GUIHelpers;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -47,11 +47,4 @@ public class DebugDialog extends DialogFragment {
         return builder.create();
     }
 
-    public static Bundle createDialogBundle(String dialogMessage, String yesText, String noText) {
-        Bundle b = new Bundle(3);
-        b.putString("Message", dialogMessage);
-        b.putString("yesText", yesText);
-        b.putString("noText", noText);
-        return b;
-    }
 }
