@@ -34,4 +34,8 @@ public class SimpleDialogs {
         fragment.setArguments(dialogOpts);
         fragment.show(fm, UUID.randomUUID().toString());
     }
+
+    public static void showDialog(@NonNull FragmentManager fm, @NonNull String messageBody) {
+        showDialog(fm, createDialogBundle(messageBody, "Yes", "No"));
+    }
 }

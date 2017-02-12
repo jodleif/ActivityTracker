@@ -22,6 +22,7 @@ import no.hit.activitytracker.Events.ActivityEvent;
 import no.hit.activitytracker.Events.AggregatedEventView;
 import no.hit.activitytracker.GUIHelpers.SimpleDialogs;
 import no.hit.activitytracker.GUIHelpers.TaggedTextView;
+import no.hit.activitytracker.RestFul.NetworkFragment;
 
 /**
  * This class describes the main view / activity in the application
@@ -34,6 +35,7 @@ public class Tracker extends AppCompatActivity {
     private final static String userId = "TEMPLATE_USER_ID";
     private final HashMap<Activity, TextView> labelMapping = new HashMap<>();
     private AggregatedEventView eventView = new AggregatedEventView();
+    private NetworkFragment nf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,5 +114,12 @@ public class Tracker extends AppCompatActivity {
     public void onCall(View view) {
         eventQueue.push(new ActivityEvent(Activity.CALL, userId));
         refreshViewBasedOnState();
+    }
+
+    public void onCreateUser(View view) throws Exception {
+        if (nf == null)
+            nf = NetworkFragment.getInstance(getFragmentManager(), null);
+        // create user
+        nf.sendRequest();
     }
 }
