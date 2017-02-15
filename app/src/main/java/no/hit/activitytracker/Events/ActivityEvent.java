@@ -3,6 +3,8 @@ package no.hit.activitytracker.Events;
 
 import android.support.annotation.NonNull;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -37,6 +39,19 @@ public class ActivityEvent implements Serializable {
         if (act != that.act) return false;
         return userId.equals(that.userId);
 
+    }
+
+    public JSONObject toJSON() {
+        JSONObject json = null;
+        try {
+            json = new JSONObject();
+            json.put("act", act.valueOf()); // activity (format json-number)
+            json.put("ts", String.valueOf(timestamp)); // timestamp (format string)
+        } catch (Exception e) {
+            // should never be here
+            System.out.println(String.format("Exception in serializing activity event\n%s", e.getMessage()));
+        }
+        return json;
     }
 
     @Override

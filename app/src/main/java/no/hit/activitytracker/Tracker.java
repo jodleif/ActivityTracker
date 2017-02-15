@@ -6,7 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
 import net.danlew.android.joda.JodaTimeAndroid;
+
+import org.json.JSONObject;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -22,7 +28,9 @@ import no.hit.activitytracker.Events.ActivityEvent;
 import no.hit.activitytracker.Events.AggregatedEventView;
 import no.hit.activitytracker.GUIHelpers.SimpleDialogs;
 import no.hit.activitytracker.GUIHelpers.TaggedTextView;
-import no.hit.activitytracker.RestFul.NetworkFragment;
+import no.hit.activitytracker.RestFul.JSONHelper;
+import no.hit.activitytracker.RestFul.JsonStringRequest;
+import no.hit.activitytracker.RestFul.VolleySingleton;
 
 /**
  * This class describes the main view / activity in the application
@@ -35,11 +43,13 @@ public class Tracker extends AppCompatActivity {
     private final static String userId = "TEMPLATE_USER_ID";
     private final HashMap<Activity, TextView> labelMapping = new HashMap<>();
     private AggregatedEventView eventView = new AggregatedEventView();
-    private NetworkFragment nf;
+    private static final String ENDPOINT_URL = "https://rest.jooivind.com/commit";
+    private VolleySingleton vs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.vs = VolleySingleton.getInstance(getApplicationContext());
         JodaTimeAndroid.init(this); // must be done to use joda time
         setContentView(R.layout.activity_tracker);
         refreshViewBasedOnState();
@@ -61,13 +71,13 @@ public class Tracker extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
+        this.vs = VolleySingleton.getInstance(getApplicationContext());
         try (FileInputStream fis = getApplicationContext().openFileInput(EVENTQUEUE_STATE_ID);
              ObjectInputStream is = new ObjectInputStream(fis)) {
             eventQueue.restore((EventQueue) is.readObject());
         } catch (Exception e) {
-
-            SimpleDialogs.showDialog(getFragmentManager(),
-                    SimpleDialogs.createDialogBundle(String.format("Error loading state, %s", e.getMessage()), "Y", "N"));
+            /*SimpleDialogs.showDialog(getFragmentManager(),
+                    SimpleDialogs.createDialogBundle(String.format("Error loading state, %s", e.getMessage()), "Y", "N"));*/
         }
         refreshViewBasedOnState();
     }
@@ -117,9 +127,25 @@ public class Tracker extends AppCompatActivity {
     }
 
     public void onCreateUser(View view) throws Exception {
-        if (nf == null)
-            nf = NetworkFragment.getInstance(getFragmentManager(), null);
-        // create user
-        nf.sendRequest();
+        if (eventQueue.getPendingEvents().size() > 0) {
+            JSONObject postEvents = JSONHelper.submitEvents(eventQueue.getPendingEvents());
+            JsonStringRequest jsonRequest = new JsonStringRequest(Request.Method.POST,
+                    ENDPOINT_URL, postEvents.toString(), new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    // If success - move events from pending to committed
+                    eventQueue.commit();
+                    System.out.println(String.format("Events successfully committed\n %s", response));
+                    SimpleDialogs.createDialogBundle(String.format("Events successfully committed\n %s", response), "Yes", "No");
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error.getMessage());
+                    SimpleDialogs.createDialogBundle(error.getMessage(), "Yes", "No");
+                }
+            });
+            vs.addToRequestQueue(jsonRequest);
+        }
     }
 }
