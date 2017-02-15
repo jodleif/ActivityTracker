@@ -119,4 +119,13 @@
         android:layout_toEndOf="@+id/meetTimes"
         android:layout_marginStart="8dp" />
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_video_control_record"
+        android:layout_alignBottom="@+id/createUser"
+        android:layout_toStartOf="@+id/createUser"
+        android:id="@+id/imageButton"
+        android:onClick="onSubmitEvents" />
+
 </RelativeLayout>

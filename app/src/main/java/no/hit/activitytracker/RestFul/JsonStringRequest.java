@@ -12,7 +12,7 @@ import java.io.UnsupportedEncodingException;
  * Created by Jo on 2/15/2017.
  * <p>
  * Extension of a Volley JsonRequest
- * It's purpose is to be able to post JSON requests and
+ * It's purpose is to be able to post JSON requests (as Strings) and
  * accept raw strings as return values
  */
 

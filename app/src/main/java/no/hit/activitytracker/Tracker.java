@@ -37,10 +37,11 @@ import no.hit.activitytracker.RestFul.VolleySingleton;
  */
 
 public class Tracker extends AppCompatActivity {
-
+    // To manage the state on pause / resume
     private final static String EVENTQUEUE_STATE_ID = "EventQueueState";
-    private final EventQueue eventQueue = new EventQueue();
     private final static String userId = "TEMPLATE_USER_ID";
+    private final static String COMMIT_OK = "DB_COMMIT_OK";
+    private final EventQueue eventQueue = new EventQueue();
     private final HashMap<Activity, TextView> labelMapping = new HashMap<>();
     private AggregatedEventView eventView = new AggregatedEventView();
     private static final String ENDPOINT_URL = "https://rest.jooivind.com/commit";
@@ -126,26 +127,54 @@ public class Tracker extends AppCompatActivity {
         refreshViewBasedOnState();
     }
 
-    public void onCreateUser(View view) throws Exception {
+    public void onSubmitEvents(View view) throws Exception {
         if (eventQueue.getPendingEvents().size() > 0) {
-            JSONObject postEvents = JSONHelper.submitEvents(eventQueue.getPendingEvents());
+            JSONObject postEvents = JSONHelper.prepareEventsForSubmit(eventQueue.getPendingEvents());
             JsonStringRequest jsonRequest = new JsonStringRequest(Request.Method.POST,
                     ENDPOINT_URL, postEvents.toString(), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     // If success - move events from pending to committed
-                    eventQueue.commit();
-                    System.out.println(String.format("Events successfully committed\n %s", response));
-                    SimpleDialogs.createDialogBundle(String.format("Events successfully committed\n %s", response), "Yes", "No");
+                    if (response.equalsIgnoreCase(COMMIT_OK)) {
+                        eventQueue.commit(); // move events from pending-queue
+                        SimpleDialogs.showDialog(getFragmentManager(), String.format("Events successfully committed\n %s", response));
+                    } else {
+                        SimpleDialogs.showDialog(getFragmentManager(), String.format("Events failed to be committed\n %s", response));
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     System.out.println(error.getMessage());
-                    SimpleDialogs.createDialogBundle(error.getMessage(), "Yes", "No");
+                    SimpleDialogs.showDialog(getFragmentManager(), error.getMessage());
                 }
             });
             vs.addToRequestQueue(jsonRequest);
+        } else {
+
+            SimpleDialogs.showDialog(getFragmentManager(), "No pending events for commit!");
         }
+    }
+
+    /**
+     * Creates the test user in the endpoint db
+     *
+     * @param view
+     */
+    public void onCreateUser(View view) {
+        JSONObject testUser = JSONHelper.createUser();
+        JsonStringRequest jsonStringRequest = new JsonStringRequest(Request.Method.POST,
+                ENDPOINT_URL, testUser.toString(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                SimpleDialogs.showDialog(getFragmentManager(), String.format("User creation request sent\n%s", response));
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                SimpleDialogs.showDialog(getFragmentManager(), String.format("User creation request failed\n%s", error.getMessage()));
+            }
+        });
+        vs.addToRequestQueue(jsonStringRequest);
     }
 }

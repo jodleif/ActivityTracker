@@ -11,16 +11,21 @@ import no.hit.activitytracker.Events.ActivityEvent;
  * Created by Jo on 2/12/2017.
  *
  * Create events to submit to the endpoint
- * TODO: Add username / password, just using a test-user for now.
+ * TODO: Add username / password handling, just using a test-user for now.
  */
 
 public class JSONHelper {
+
+    // TODO: Implement proper username / password management
+    // (encrypt on phone)
+    private static final String userName = "test-user@test.com";
+    private static final String password = "testpassword123";
     public static JSONObject createUser() {
         JSONObject json = null;
         try {
             json = new JSONObject();
-            json.put("user", "test@test.com");
-            json.put("pw", "123123123");
+            json.put("user", userName);
+            json.put("pw", password);
             json.put("type", 0);
             return json;
         } catch (Exception e) {
@@ -29,7 +34,7 @@ public class JSONHelper {
         return json;
     }
 
-    public static JSONObject submitEvents(ArrayList<ActivityEvent> pendingEvents) {
+    public static JSONObject prepareEventsForSubmit(ArrayList<ActivityEvent> pendingEvents) {
         JSONObject json = null;
         JSONArray jsonArray = null;
         ArrayList<JSONObject> objects = new ArrayList<>();
@@ -37,8 +42,8 @@ public class JSONHelper {
         try {
             jsonArray = new JSONArray(objects);
             json = new JSONObject();
-            json.put("user", "test@test.com");
-            json.put("pw", "123123123");
+            json.put("user", userName);
+            json.put("pw", password);
             json.put("type", 1);
             json.put("events", jsonArray);
             return json;
